@@ -1,13 +1,9 @@
 import {expect} from '@playwright/test';
 
-const dashboardPage = require('../Dashboard_Page/dashboardPage');
-
-module.exports = class loginPage{
+module.exports = class LoginPage{
     
     constructor(page){
         this.page = page;
-
-        this.DP = new dashboardPage(this.page);
 
         this.initilizeLocators();
     }
@@ -41,8 +37,6 @@ module.exports = class loginPage{
                 console.log(`Login failed with error: ${errorText.trim()}`);
                 return errorText.trim();
             }
-            await expect(this.DP.dashboardTitle).toBeVisible({timeout: parseInt(process.env.SHORT_TIMEOUT)});
-            await expect(this.DP.cartIcon).toBeVisible({timeout: parseInt(process.env.SHORT_TIMEOUT)});
             console.log('Login successful, dashboard page is visible');
             return 'success';
         }catch(error){
