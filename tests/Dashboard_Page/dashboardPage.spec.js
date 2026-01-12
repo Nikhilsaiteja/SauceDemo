@@ -36,3 +36,7 @@ test('Verify product filter: Price (low to high)', async ()=>{
 test('Verify product filter: Price (high to low)', async ()=>{
     await DP.verifyProductsFilters('hilo');
 });
+
+test.only('Verify About Menu button', async ()=>{
+    await DP.verifyMenuButtons('About');
+});

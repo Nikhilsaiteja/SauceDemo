@@ -1,5 +1,4 @@
 import {expect} from '@playwright/test';
-import { parse } from 'node:path';
 
 module.exports = class DashboardPage{
 
@@ -25,6 +24,20 @@ module.exports = class DashboardPage{
 
         //Cart locator
         this.cartIcon = this.page.locator("//a[@class='shopping_cart_link']").first();
+
+        //Menu locators
+        this.menuBtn = this.page.locator("//button[@id='react-burger-menu-btn']").first();
+        this.allItemsBtn = this.page.locator("//a[@id='inventory_sidebar_link']").first();
+        this.aboutBtn = this.page.locator("//a[@id='about_sidebar_link']").first();
+        this.logoutBtn = this.page.locator("//a[@id='logout_sidebar_link']").first();
+        this.resetAppStateBtn = this.page.locator("//a[@id='reset_sidebar_link']").first();
+        this.menuCloseBtn = this.page.locator("//button[@id='react-burger-cross-btn']").first();
+
+        //sauce labs title
+        this.sauseLabsTitle = this.page.locator("//div[@class='MuiBox-root css-lwb5go']//img[@alt='Saucelabs']").first();
+
+        //login button
+        this.loginBtn = this.page.locator("//input[@id='login-button']").first();
 
     }
 
@@ -72,6 +85,63 @@ module.exports = class DashboardPage{
             await this.page.waitForTimeout(3000);
         }catch(error){
             console.error(`Error in verifyProductsFilters: ${error}`);
+            throw error;
+        }
+    }
+
+    async verifyMenuButtons(button){
+        try{
+            console.log('Verifying menu buttons functionality');
+            await this.menuBtn.click();
+            await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
+            await expect(this.allItemsBtn).toBeVisible();
+            await expect(this.aboutBtn).toBeVisible();
+            await expect(this.logoutBtn).toBeVisible();
+            await expect(this.resetAppStateBtn).toBeVisible();
+            console.log('All menu buttons are visible.');
+            let message = fail;
+            console.log(`Clicking on menu button: ${button}`);
+            switch(button){
+                case 'All Items':
+                    await this.allItemsBtn.click();
+                    await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
+                    expect(await this.productsText.isVisible()).toBeTruthy();
+                    console.log('All Items button is working correctly.');
+                    message = 'success';
+                    break;
+                case 'About':
+                    await this.aboutBtn.click();
+                    await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
+                    expect(await this.sauseLabsTitle.isVisible()).toBeTruthy();
+                    console.log('About button is working correctly.');
+                    message = 'success';
+                    break;
+                case 'Logout':
+                    await this.logoutBtn.click();
+                    await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
+                    expect(await this.loginBtn.isVisible()).toBeTruthy();
+                    console.log('Logout button is working correctly.');
+                    message = 'success';
+                    break; 
+                case 'Reset App State':
+                    await this.resetAppStateBtn.click();
+                    await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
+                    expect(await this.productsText.isVisible()).toBeTruthy();
+                    console.log('Reset App State button is working correctly.');
+                    message = 'success';
+                    break;
+            }
+            await this.menuCloseBtn.click();
+            await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
+            await expect(this.menuBtn).toBeVisible();
+            expect(await this.allItemsBtn.isVisible()).toBeFalsy();
+            expect(await this.aboutBtn.isVisible()).toBeFalsy();
+            expect(await this.logoutBtn.isVisible()).toBeFalsy();
+            expect(await this.resetAppStateBtn.isVisible()).toBeFalsy();
+            console.log('Menu closed successfully.');
+            return message;
+        }catch(error){
+            console.error(`Error in verifyMenuButtons: ${error}`);
             throw error;
         }
     }
