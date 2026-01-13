@@ -25,6 +25,11 @@ module.exports = class DashboardPage{
 
         //Cart locator
         this.cartIcon = this.page.locator("//a[@class='shopping_cart_link']").first();
+        this.cartPageTitle = this.page.locator("//span[@class='title']").first();
+        this.cartItems = this.page.locator("//div[@class='cart_item']");
+        this.cartItemsNames = this.page.locator("//div[@class='inventory_item_name']");
+        this.cartItemsPrices = this.page.locator("//div[@class='inventory_item_price']");
+        this.continueShoppingBtn = this.page.locator("//button[@id='continue-shopping']").first();
 
         //Menu locators
         this.menuBtn = this.page.locator("//button[@id='react-burger-menu-btn']").first();
@@ -40,6 +45,22 @@ module.exports = class DashboardPage{
         //login button
         this.loginBtn = this.page.locator("//input[@id='login-button']").first();
 
+    }
+
+    getCartBtnByName(productName){
+        return this.page.locator(`//div[normalize-space()='${productName}']/../../../div[2]/button`);
+    }
+
+    getProductPriceByName(productName){
+        return this.page.locator(`//div[normalize-space()='${productName}']/../../../div[2]/div`);
+    }
+
+    getProductRemoveBtnInCartByName(productName){
+        return this.page.locator(`//div[normalize-space()='${productName}']/../../div[2]/button`);
+    }
+
+    getProductPriceInCartByName(productName){
+        return this.page.locator(`//div[normalize-space()='${productName}']/../../div[2]/div`);
     }
 
     async verifyProductsFilters(filter){
@@ -149,6 +170,120 @@ module.exports = class DashboardPage{
             }
         }catch(error){
             console.error(`Error in verifyMenuButtons: ${error}`);
+            throw error;
+        }
+    }
+
+    async getAllProductNames(){
+        try{
+            console.log('Fetching all product names from the dashboard.');
+            const productNames = await this.allProductsNames.allTextContents();
+            console.log(`Product names fetched: ${productNames}`);
+            return productNames;
+        }catch(error){
+            console.error(`Error in getAllProductsNames: ${error}`);
+            throw error;
+        }
+    }
+
+    async getAllProductNamesInCart(){
+        try{
+            console.log('Fetching all product names from the cart.');
+            const productNames = await this.cartItemsNames.allTextContents();
+            console.log(`Product names in cart fetched: ${productNames}`);
+            return productNames;
+        }catch(error){
+            console.error(`Error in getAllProductNamesInCart: ${error}`);
+            throw error;
+        }
+    }
+
+    async navigateToCartPage(){
+        try{
+            console.log('Navigating to the cart page.');
+            await this.cartIcon.click();
+            await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
+            expect(await this.cartPageTitle.isVisible()).toBeTruthy();
+            console.log('Navigated to the cart page successfully.');
+            const totalItems = await this.cartItems.count();
+            console.log(`Total items in cart: ${totalItems}`);
+            const productNames = await this.getAllProductNamesInCart();
+            console.log(`Product names in cart: ${productNames}`);
+            let cartItemsPrices = {};
+            for (const name of productNames) {
+                let priceLocator = this.getProductPriceInCartByName(name);
+                let price = parseFloat((await priceLocator.textContent()).split('$')[1]);
+                cartItemsPrices[name] = price;
+            }
+            console.log(`Cart items prices: ${JSON.stringify(cartItemsPrices)}`);
+            return {
+                totalItems: totalItems,
+                productNames: productNames,
+                productPrices: cartItemsPrices,
+                message: 'Success'
+            };
+        }catch(error){
+            console.error(`Error in navigateToCartPage: ${error}`);
+            throw error;
+        }
+    }
+
+    async addToCartProductByName(productName){
+        try{
+            console.log(`Adding product to cart: ${productName}`);
+            const cartBtn = this.getCartBtnByName(productName);
+            expect(await cartBtn.textContent()).toBe('Add to cart');
+            const productPriceLocator = this.getProductPriceByName(productName);
+            const productPrice = parseFloat((await productPriceLocator.textContent()).split('$')[1]);
+            console.log(`Product price on dashboard: ${productPrice}`);
+            await cartBtn.click();
+            await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
+            expect(await cartBtn.textContent()).toBe('Remove');
+            const cartIconCount = parseInt(await this.cartIcon.textContent());
+            console.log(`Cart icon count after adding product: ${cartIconCount}`);
+            expect(cartIconCount).toBeGreaterThan(0);
+            console.log(`Product "${productName}" added to cart successfully.`);
+            return {
+                name: productName,
+                price: productPrice,
+                message: 'Success'
+            }
+        }catch(error){
+            console.error(`Error in addToCartProductByName: ${error}`);
+            throw error;
+        }
+    }
+
+    async removeFromCartProductByName(productName){
+        try{
+            console.log(`Removing product from cart: ${productName}`);
+            const removeBtn = this.getProductRemoveBtnInCartByName(productName);
+            expect(await removeBtn.textContent()).toBe('Remove');
+            await removeBtn.click();
+            await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
+            const cartItems = await this.cartItemsNames.allTextContents();
+            await expect(cartItems).not.toContain(productName);
+            console.log(`Product "${productName}" removed from cart successfully.`);
+            return 'success';
+        }catch(error){
+            console.error(`Error in removeFromCartProductByName: ${error}`);
+            throw error;
+        }
+    }
+
+    async navigateToDashboardPageFromCart(){
+        try{
+            console.log('Navigating back to the dashboard page from cart.');
+            await this.navigateToCartPage();
+            await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
+            await this.continueShoppingBtn.click();
+            await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
+            expect(await this.dashboardTitle.isVisible()).toBeTruthy();
+            expect(await this.productsText.isVisible()).toBeTruthy();
+            console.log('Navigated back to the dashboard page successfully.');
+            return 'success';
+        }catch(error){
+            console.error(`Error in navigateToDashboardPageFromCart: ${error}`);
             throw error;
         }
     }
