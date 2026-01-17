@@ -1,9 +1,0 @@
-Logging in with username: standard_user and password: secret_sauce
-Title text is visible on login page
-Login successful, dashboard page is visible
-Fetching all product names from the dashboard.
-Product names fetched: Sauce Labs Backpack,Sauce Labs Bike Light,Sauce Labs Bolt T-Shirt,Sauce Labs Fleece Jacket,Sauce Labs Onesie,Test.allTheThings() T-Shirt (Red)
-Adding product to cart: Sauce Labs Backpack
-Product price on dashboard: 29.99
-Cart icon count after adding product: 1
-Product "Sauce Labs Backpack" added to cart successfully.

@@ -1,7 +1,0 @@
-Logging in with username: standard_user and password: secret_sauce
-Title text is visible on login page
-Login successful, dashboard page is visible
-Verifying menu buttons functionality
-All menu buttons are visible.
-Clicking on menu button: Logout
-Logout button is working correctly.

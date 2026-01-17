@@ -1,9 +1,0 @@
-Logging in with username: standard_user and password: secret_sauce
-Title text is visible on login page
-Login successful, dashboard page is visible
-Verifying menu buttons functionality
-All menu buttons are visible.
-Clicking on menu button: About
-Navigated to: https://saucelabs.com/
-About button is working correctly - navigated to Sauce Labs website.
-Sauce Labs title is visible on the About page.

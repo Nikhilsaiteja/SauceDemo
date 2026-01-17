@@ -1,5 +1,0 @@
-Logging in with username: standard_user and password: secret_sauce
-Title text is visible on login page
-Login successful, dashboard page is visible
-Dashboard title is visible after login
-Cart icon is visible on dashboard page after login

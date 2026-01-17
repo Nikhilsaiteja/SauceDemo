@@ -1,9 +1,0 @@
-Logging in with username: standard_user and password: secret_sauce
-Title text is visible on login page
-Login successful, dashboard page is visible
-Verifying product filter: hilo
-Total products found: 6
-Product names: Sauce Labs Fleece Jacket,Sauce Labs Backpack,Sauce Labs Bolt T-Shirt,Test.allTheThings() T-Shirt (Red),Sauce Labs Bike Light,Sauce Labs Onesie
-Product prices: 49.99,29.99,15.99,15.99,9.99,7.99
-Sorted prices High to Low: 49.99,29.99,15.99,15.99,9.99,7.99
-Products are sorted by Price High to Low correctly.
