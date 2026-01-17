@@ -2,16 +2,19 @@ import {test,expect} from '@playwright/test';
 
 const loginPage = require('../Login_Page/loginPage');
 const dashboardPage = require('../Dashboard_Page/dashboardPage');
+const cartPage = require('../Cart_Page/cartPage');
 
 let page;
 let LP;
 let DP;
+let CP;
 
 test.beforeEach(async ({ browser })=>{
     const context = await browser.newContext();
     page = await context.newPage();
     LP = new loginPage(page);
     DP = new dashboardPage(page);
+    CP = new cartPage(page);
     await page.goto(process.env.APP_URL);
     await page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
     await LP.loginToApplication(process.env.APP_USERNAME, process.env.APP_PASSWORD);
@@ -56,26 +59,4 @@ test('Verify Reset App State Menu button', async ()=>{
 test('Verify adding product to cart by name', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[0]);
-});
-
-test('Verify navigating to cart page from dashboard', async ()=>{
-    const products = await DP.getAllProductNames();
-    const {name,price,message} = await DP.addToCartProductByName(products[0]);
-    const {totalItems,productNames,productPrices,message:cartMessage} = await DP.navigateToCartPage();
-    expect(totalItems).toBeGreaterThan(0);
-    expect(productNames).toContain(name);
-    expect(price).toBe(productPrices[name]);
-});
-
-test('Verify removing product from cart by name', async ()=>{
-    const products = await DP.getAllProductNames();
-    await DP.addToCartProductByName(products[0]);
-    await DP.navigateToCartPage();
-    await DP.removeFromCartProductByName(products[0]);
-});
-
-test.only('Verify navigating back to dashboard page from cart', async ()=>{
-    const products = await DP.getAllProductNames();
-    await DP.addToCartProductByName(products[3]);
-    await DP.navigateToDashboardPageFromCart();
 });
