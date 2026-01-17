@@ -26,8 +26,8 @@ test.afterEach(async ()=>{
 
 test('Verify navigating to cart page from dashboard', async ()=>{
     const products = await DP.getAllProductNames();
-    const {name,price,message} = await DP.addToCartProductByName(products[0]);
-    const {totalItems,productNames,productPrices,message:cartMessage} = await CP.navigateToCartPage();
+    const {name,price} = await DP.addToCartProductByName(products[0]);
+    const {totalItems,productNames,productPrices} = await CP.navigateToCartPage();
     expect(totalItems).toBeGreaterThan(0);
     expect(productNames).toContain(name);
     expect(price).toBe(productPrices[name]);
@@ -51,19 +51,19 @@ test('Verify navigating back to dashboard page from cart', async ()=>{
 test('Verify checkout process from cart to order confirmation', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
-    const {totalItems,productNames,productPrices,message:cartMessage} = await CP.navigateToCartPage();
-    const {overviewTotalItems, overviewProductNames, overviewProductPrices,finalPrice, message:checkoutMessage} = await CP.checkoutFromCart('John','Doe','12345');
+    const {totalItems,productNames,productPrices} = await CP.navigateToCartPage();
+    const {overviewTotalItems, overviewProductNames, overviewProductPrices} = await CP.checkoutFromCart('John','Doe','12345');
     expect(overviewTotalItems).toBe(totalItems);
     expect(overviewProductNames).toEqual(productNames);
     expect(overviewProductPrices).toEqual(productPrices);
 });
 
-test.only('Verify finishing checkout process and order confirmation', async ()=>{
+test('Verify finishing checkout process and order confirmation', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
     await DP.addToCartProductByName(products[4]);
     await CP.navigateToCartPage();
-    const {overviewTotalItems, overviewProductNames, overviewProductPrices,finalPrice, message:checkoutMessage} = await CP.checkoutFromCart('John','Doe','12345');
-    const {totalPrice, message} = await CP.finishCheckout();
+    const {finalPrice} = await CP.checkoutFromCart('John','Doe','12345');
+    const {totalPrice} = await CP.finishCheckout();
     expect(totalPrice).toBe(finalPrice);
 });
