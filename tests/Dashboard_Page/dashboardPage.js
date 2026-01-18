@@ -68,25 +68,25 @@ module.exports = class DashboardPage{
                     console.log(`Sorted names A to Z: ${sortedNamesAZ}`);
                     expect(productNames).toEqual(sortedNamesAZ);
                     console.log('Products are sorted A to Z correctly.');
-                    return 'success';
+                    return;
                 case 'za':
                     let sortedNamesZA = [...productNames].sort().reverse();
                     console.log(`Sorted names Z to A: ${sortedNamesZA}`);
                     expect(productNames).toEqual(sortedNamesZA);
                     console.log('Products are sorted Z to A correctly.');
-                    return 'success';
+                    return;
                 case 'lohi':
                     let sortedPricesLOHI = [...productPrices].sort((a,b)=>a-b);
                     console.log(`Sorted prices Low to High: ${sortedPricesLOHI}`);
                     expect(productPrices).toEqual(sortedPricesLOHI);
                     console.log('Products are sorted by Price Low to High correctly.');
-                    return 'success';
+                    return;
                 case 'hilo':
                     let sortedPricesHILO = [...productPrices].sort((a,b)=>b-a);
                     console.log(`Sorted prices High to Low: ${sortedPricesHILO}`);
                     expect(productPrices).toEqual(sortedPricesHILO);
                     console.log('Products are sorted by Price High to Low correctly.');
-                    return 'success';
+                    return;
             }
 
             //Wait for products to be updated
@@ -122,7 +122,7 @@ module.exports = class DashboardPage{
                     expect(await this.logoutBtn.isVisible()).toBeFalsy();
                     expect(await this.resetAppStateBtn.isVisible()).toBeFalsy();
                     console.log('Menu closed successfully.');
-                    return 'success';
+                    return;
                 case 'About':
                     await this.aboutBtn.click();
                     await this.page.waitForTimeout(parseInt(process.env.TIMEOUT));
@@ -132,13 +132,13 @@ module.exports = class DashboardPage{
                     console.log('About button is working correctly - navigated to Sauce Labs website.');
                     expect(await this.sauseLabsTitle.isVisible()).toBeTruthy();
                     console.log('Sauce Labs title is visible on the About page.');
-                    return 'success';
+                    return;
                 case 'Logout':
                     await this.logoutBtn.click();
                     await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
                     expect(await this.loginBtn.isVisible()).toBeTruthy();
                     console.log('Logout button is working correctly.');
-                    return 'success';
+                    return;
                 case 'Reset App State':
                     await this.resetAppStateBtn.click();
                     await this.page.waitForTimeout(parseInt(process.env.VERY_SHORT_TIMEOUT));
@@ -152,7 +152,7 @@ module.exports = class DashboardPage{
                     expect(await this.logoutBtn.isVisible()).toBeFalsy();
                     expect(await this.resetAppStateBtn.isVisible()).toBeFalsy();
                     console.log('Menu closed successfully.');
-                    return 'success';
+                    return;
             }
         }catch(error){
             console.error(`Error in verifyMenuButtons: ${error}`);
@@ -189,8 +189,7 @@ module.exports = class DashboardPage{
             console.log(`Product "${productName}" added to cart successfully.`);
             return {
                 name: productName,
-                price: productPrice,
-                message: 'Success'
+                price: productPrice
             }
         }catch(error){
             console.error(`Error in addToCartProductByName: ${error}`);

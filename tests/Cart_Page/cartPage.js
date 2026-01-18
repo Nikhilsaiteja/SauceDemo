@@ -1,5 +1,4 @@
 import {expect} from '@playwright/test';
-import { parse } from 'node:path';
 
 module.exports = class CartPage{
 
@@ -78,8 +77,7 @@ module.exports = class CartPage{
             return {
                 totalItems: totalItems,
                 productNames: productNames,
-                productPrices: cartItemsPrices,
-                message: 'Success'
+                productPrices: cartItemsPrices
             };
         }catch(error){
             console.error(`Error in navigateToCartPage: ${error}`);
@@ -97,7 +95,7 @@ module.exports = class CartPage{
             const cartItems = await this.cartItemsNames.allTextContents();
             await expect(cartItems).not.toContain(productName);
             console.log(`Product "${productName}" removed from cart successfully.`);
-            return 'success';
+            return;
         }catch(error){
             console.error(`Error in removeFromCartProductByName: ${error}`);
             throw error;
@@ -112,7 +110,7 @@ module.exports = class CartPage{
             await this.continueShoppingBtn.click();
             await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
             console.log('Navigated back to the dashboard page successfully.');
-            return 'success';
+            return;
         }catch(error){
             console.error(`Error in navigateToDashboardPageFromCart: ${error}`);
             throw error;
@@ -136,7 +134,7 @@ module.exports = class CartPage{
                 await this.cancelBtn.click();
                 await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
                 console.log('Checkout cancelled in first step.');
-                return 'cancelled in first step';
+                return;
             }
             await this.firstNameInput.pressSequentially(firstName, {delay: 100});
             await this.lastNameInput.pressSequentially(lastName, {delay: 100});
@@ -149,7 +147,7 @@ module.exports = class CartPage{
                 await this.cancelBtn.click();
                 await this.page.waitForLoadState('networkidle',{timeout: process.env.LONG_TIMEOUT});
                 console.log('Checkout cancelled in second step.');
-                return 'cancelled in second step';
+                return;
             }
             const overviewTotalItems = await this.cartItems.count();
             console.log(`Total items in cart: ${overviewTotalItems}`);
@@ -175,8 +173,7 @@ module.exports = class CartPage{
                 overviewTotalItems,
                 overviewProductNames,
                 overviewProductPrices,
-                finalPrice,
-                message: 'checkout completed'
+                finalPrice
             };
         }catch(error){
             console.error(`Error in checkoutFromCart: ${error}`);
@@ -194,8 +191,7 @@ module.exports = class CartPage{
             expect(await this.orderConfirmationMessage.isVisible()).toBeTruthy();
             console.log('Checkout finished successfully.');
             return {
-                totalPrice,
-                message: 'success'
+                totalPrice
             };
         }catch(error){
             console.error(`Error in finishCheckout: ${error}`);
