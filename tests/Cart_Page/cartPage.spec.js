@@ -58,6 +58,24 @@ test('Verify checkout process from cart to order confirmation', async ()=>{
     expect(overviewProductPrices).toEqual(productPrices);
 });
 
+test('Verify checkout process from cart by performing cancel in first step', async ()=>{
+    const products = await DP.getAllProductNames();
+    await DP.addToCartProductByName(products[2]);
+    await CP.navigateToCartPage();
+    await CP.checkoutFromCart('John','Doe','12345',{cancelInFirstStep: true});
+    expect(await DP.dashboardTitle.isVisible()).toBeTruthy();
+    expect(await DP.productsText.isVisible()).toBeTruthy();
+});
+
+test('Verify checkout process from cart by performing cancel in second step', async ()=>{
+    const products = await DP.getAllProductNames();
+    await DP.addToCartProductByName(products[2]);
+    await CP.navigateToCartPage();
+    await CP.checkoutFromCart('John','Doe','12345',{cancelInSecondStep: true});
+    expect(await DP.dashboardTitle.isVisible()).toBeTruthy();
+    expect(await DP.productsText.isVisible()).toBeTruthy();
+});
+
 test('Verify finishing checkout process and order confirmation', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
