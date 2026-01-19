@@ -1,0 +1,9 @@
+Logging in with username: standard_user and password: secret_sauce
+Title text is visible on login page
+Login successful, dashboard page is visible
+Verifying product filter: za
+Total products found: 6
+Product names: Test.allTheThings() T-Shirt (Red),Sauce Labs Onesie,Sauce Labs Fleece Jacket,Sauce Labs Bolt T-Shirt,Sauce Labs Bike Light,Sauce Labs Backpack
+Product prices: 15.99,7.99,49.99,15.99,9.99,29.99
+Sorted names Z to A: Test.allTheThings() T-Shirt (Red),Sauce Labs Onesie,Sauce Labs Fleece Jacket,Sauce Labs Bolt T-Shirt,Sauce Labs Bike Light,Sauce Labs Backpack
+Products are sorted Z to A correctly.

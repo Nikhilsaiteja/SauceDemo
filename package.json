@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "description": "To build Automation Framework on https://www.saucedemo.com/",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "allure:generate": "allure generate ./allure-results --clean -o ./allure-report",
+    "allure:open": "allure open ./allure-report",
+    "allure:clear": "node -e \"require('fs').rmSync('./allure-results', { recursive: true, force: true }); require('fs').mkdirSync('./allure-results', { recursive: true });\"",
+    "test:login": "npx playwright test loginPage.spec.js",
+    "test:dashboard": "npx playwright test dashboardPage.spec.js",
+    "test:cart": "npx playwright test cartPage.spec.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Nikhilsaiteja/SauceDemo.git"
