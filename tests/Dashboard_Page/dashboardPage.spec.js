@@ -24,39 +24,39 @@ test.afterEach(async ()=>{
     await page.close();
 });
 
-test('Verify product filter: Names (A to Z)', async ()=>{
+test('Verify product filter: Names (A to Z)@filter', async ()=>{
     await DP.verifyProductsFilters('az');
 });
 
-test('Verify product filter: Names (Z to A)', async ()=>{
+test('Verify product filter: Names (Z to A)@filter', async ()=>{
     await DP.verifyProductsFilters('za');
 });
 
-test('Verify product filter: Price (low to high)', async ()=>{
+test('Verify product filter: Price (low to high)@filter', async ()=>{
     await DP.verifyProductsFilters('lohi');
 });
 
-test('Verify product filter: Price (high to low)', async ()=>{
+test('Verify product filter: Price (high to low)@filter', async ()=>{
     await DP.verifyProductsFilters('hilo');
 });
 
-test('Verify All Items Menu button', async ()=>{
+test('Verify All Items Menu button@menu', async ()=>{
     await DP.verifyMenuButtons('All Items');
 });
 
-test('Verify About Menu button', async ()=>{
+test('Verify About Menu button@menu', async ()=>{
     await DP.verifyMenuButtons('About');
 });
 
-test('Verify Logout Menu button', async ()=>{
+test('Verify Logout Menu button@menu', async ()=>{
     await DP.verifyMenuButtons('Logout');
 });
 
-test('Verify Reset App State Menu button', async ()=>{
+test('Verify Reset App State Menu button@menu', async ()=>{
     await DP.verifyMenuButtons('Reset App State');
 });
 
-test('Verify adding product to cart by name', async ()=>{
+test('Verify adding product to cart by name@cart', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[0]);
 });
