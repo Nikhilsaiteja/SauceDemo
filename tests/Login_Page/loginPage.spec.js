@@ -19,16 +19,20 @@ test.afterEach(async ()=>{
     await page.close();
 });
 
-test('Login with valid credentials@login', async()=>{
-    const loginResult = await LP.loginToApplication(process.env.APP_USERNAME, process.env.APP_PASSWORD);
-    expect(loginResult).toBe('success');
-    await expect(DP.dashboardTitle).toBeVisible({timeout: parseInt(process.env.SHORT_TIMEOUT)});
-    console.log('Dashboard title is visible after login');
-    await expect(DP.cartIcon).toBeVisible({timeout: parseInt(process.env.SHORT_TIMEOUT)});
-    console.log('Cart icon is visible on dashboard page after login');
-});
+test.describe('Login Page Tests',()=>{
 
-test('Login with invalid credentials@login', async()=>{
-    const loginResult = await LP.loginToApplication("UserName", "Password");
-    expect(loginResult).toContain('Username and password do not match any user in this service');
+    test('Login with valid credentials@login@valid', async()=>{
+        const loginResult = await LP.loginToApplication(process.env.APP_USERNAME, process.env.APP_PASSWORD);
+        expect(loginResult).toBe('success');
+        await expect(DP.dashboardTitle).toBeVisible({timeout: parseInt(process.env.SHORT_TIMEOUT)});
+        console.log('Dashboard title is visible after login');
+        await expect(DP.cartIcon).toBeVisible({timeout: parseInt(process.env.SHORT_TIMEOUT)});
+        console.log('Cart icon is visible on dashboard page after login');
+    });
+
+    test('Login with invalid credentials@login@invalid', async()=>{
+        const loginResult = await LP.loginToApplication("UserName", "Password");
+        expect(loginResult).toContain('Username and password do not match any user in this service');
+    });
+
 });

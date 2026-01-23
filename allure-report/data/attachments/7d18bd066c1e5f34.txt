@@ -1,0 +1,34 @@
+Logging in with username: standard_user and password: secret_sauce
+Title text is visible on login page
+Login successful, dashboard page is visible
+Fetching all product names from the dashboard.
+Product names fetched: Sauce Labs Backpack,Sauce Labs Bike Light,Sauce Labs Bolt T-Shirt,Sauce Labs Fleece Jacket,Sauce Labs Onesie,Test.allTheThings() T-Shirt (Red)
+Adding product to cart: Sauce Labs Bolt T-Shirt
+Product price on dashboard: 15.99
+Cart icon count after adding product: 1
+Product "Sauce Labs Bolt T-Shirt" added to cart successfully.
+Adding product to cart: Sauce Labs Onesie
+Product price on dashboard: 7.99
+Cart icon count after adding product: 2
+Product "Sauce Labs Onesie" added to cart successfully.
+Navigating to the cart page.
+Navigated to the cart page successfully.
+Total items in cart: 2
+Fetching all product names from the cart.
+Product names in cart fetched: Sauce Labs Bolt T-Shirt,Sauce Labs Onesie
+Product names in cart: Sauce Labs Bolt T-Shirt,Sauce Labs Onesie
+Cart items prices: {"Sauce Labs Bolt T-Shirt":15.99,"Sauce Labs Onesie":7.99}
+Initiating checkout from cart.
+On checkout information page.
+On checkout overview page.
+Total items in cart: 2
+Fetching all product names from the cart.
+Product names in cart fetched: Sauce Labs Bolt T-Shirt,Sauce Labs Onesie
+Products in checkout overview: Sauce Labs Bolt T-Shirt,Sauce Labs Onesie
+Product prices in checkout overview: {"Sauce Labs Bolt T-Shirt":15.99,"Sauce Labs Onesie":7.99}
+itemsPrice: 23.98, subTotal: 23.98, tax: 1.92
+Final price (including tax): 25.9
+Checkout process completed successfully.
+Finishing checkout process.
+Total price to be paid: 25.9
+Checkout finished successfully.
