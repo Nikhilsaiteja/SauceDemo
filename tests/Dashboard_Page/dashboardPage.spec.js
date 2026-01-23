@@ -24,39 +24,51 @@ test.afterEach(async ()=>{
     await page.close();
 });
 
-test('Verify product filter: Names (A to Z)@filter', async ()=>{
-    await DP.verifyProductsFilters('az');
+test.describe('Dashboard filter Tests',()=>{
+
+    test('Verify product filter: Names (A to Z)@filter@asc', async ()=>{
+        await DP.verifyProductsFilters('az');
+    });
+
+    test('Verify product filter: Names (Z to A)@filter@desc', async ()=>{
+        await DP.verifyProductsFilters('za');
+    });
+
+    test('Verify product filter: Price (low to high)@filter@asc', async ()=>{
+        await DP.verifyProductsFilters('lohi');
+    });
+
+    test('Verify product filter: Price (high to low)@filter@desc', async ()=>{
+        await DP.verifyProductsFilters('hilo');
+    });
+    
 });
 
-test('Verify product filter: Names (Z to A)@filter', async ()=>{
-    await DP.verifyProductsFilters('za');
+test.describe('Dashboard Menu Tests',()=>{
+
+    test('Verify All Items Menu button@menu@allitems', async ()=>{
+        await DP.verifyMenuButtons('All Items');
+    });
+
+    test('Verify About Menu button@menu@about', async ()=>{
+        await DP.verifyMenuButtons('About');
+    });
+
+    test('Verify Logout Menu button@menu@logout', async ()=>{
+        await DP.verifyMenuButtons('Logout');
+    });
+
+    test('Verify Reset App State Menu button@menu@resetappstate', async ()=>{
+        await DP.verifyMenuButtons('Reset App State');
+    });
+
 });
 
-test('Verify product filter: Price (low to high)@filter', async ()=>{
-    await DP.verifyProductsFilters('lohi');
-});
+test.describe('Dashboard Cart Tests',()=>{
 
-test('Verify product filter: Price (high to low)@filter', async ()=>{
-    await DP.verifyProductsFilters('hilo');
-});
+    test('Verify adding product to cart by name@cart', async ()=>{
+        const products = await DP.getAllProductNames();
+        await DP.addToCartProductByName(products[0]);
+    });
 
-test('Verify All Items Menu button@menu', async ()=>{
-    await DP.verifyMenuButtons('All Items');
-});
-
-test('Verify About Menu button@menu', async ()=>{
-    await DP.verifyMenuButtons('About');
-});
-
-test('Verify Logout Menu button@menu', async ()=>{
-    await DP.verifyMenuButtons('Logout');
-});
-
-test('Verify Reset App State Menu button@menu', async ()=>{
-    await DP.verifyMenuButtons('Reset App State');
-});
-
-test('Verify adding product to cart by name@cart', async ()=>{
-    const products = await DP.getAllProductNames();
-    await DP.addToCartProductByName(products[0]);
 });

@@ -34,7 +34,7 @@ module.exports = class DashboardPage{
         this.menuCloseBtn = this.page.locator("//button[@id='react-burger-cross-btn']").first();
 
         //sauce labs title
-        this.sauseLabsTitle = this.page.locator("//div[@class='MuiBox-root css-lwb5go']//img[@alt='Saucelabs']").first();
+        this.sauceLabsTitle = this.page.locator("//div[@class='MuiBox-root css-lwb5go']//img[@alt='Saucelabs']").first();
 
         //login button
         this.loginBtn = this.page.locator("//input[@id='login-button']").first();
@@ -130,7 +130,7 @@ module.exports = class DashboardPage{
                     console.log(`Navigated to: ${currentUrl}`);
                     expect(currentUrl).toContain('saucelabs.com');
                     console.log('About button is working correctly - navigated to Sauce Labs website.');
-                    expect(await this.sauseLabsTitle.isVisible()).toBeTruthy();
+                    expect(await this.sauceLabsTitle.isVisible()).toBeTruthy();
                     console.log('Sauce Labs title is visible on the About page.');
                     return;
                 case 'Logout':
