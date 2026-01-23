@@ -24,7 +24,7 @@ test.afterEach(async ()=>{
     await page.close();
 });
 
-test('Verify navigating to cart page from dashboard', async ()=>{
+test('Verify navigating to cart page from dashboard@cart', async ()=>{
     const products = await DP.getAllProductNames();
     const {name,price} = await DP.addToCartProductByName(products[0]);
     const {totalItems,productNames,productPrices} = await CP.navigateToCartPage();
@@ -33,14 +33,14 @@ test('Verify navigating to cart page from dashboard', async ()=>{
     expect(price).toBe(productPrices[name]);
 });
 
-test('Verify removing product from cart by name', async ()=>{
+test('Verify removing product from cart by name@cart', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[0]);
     await CP.navigateToCartPage();
     await CP.removeFromCartProductByName(products[0]);
 });
 
-test('Verify navigating back to dashboard page from cart', async ()=>{
+test('Verify navigating back to dashboard page from cart@cart', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[3]);
     await CP.navigateToDashboardPageFromCart();
@@ -48,7 +48,7 @@ test('Verify navigating back to dashboard page from cart', async ()=>{
     expect(await DP.productsText.isVisible()).toBeTruthy();
 });
 
-test('Verify checkout process from cart to order confirmation', async ()=>{
+test('Verify checkout process from cart to order confirmation@checkout', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
     const {totalItems,productNames,productPrices} = await CP.navigateToCartPage();
@@ -58,7 +58,7 @@ test('Verify checkout process from cart to order confirmation', async ()=>{
     expect(overviewProductPrices).toEqual(productPrices);
 });
 
-test('Verify checkout process from cart by performing cancel in first step', async ()=>{
+test('Verify checkout process from cart by performing cancel in first step@checkout', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
     await CP.navigateToCartPage();
@@ -67,7 +67,7 @@ test('Verify checkout process from cart by performing cancel in first step', asy
     expect(await DP.productsText.isVisible()).toBeTruthy();
 });
 
-test('Verify checkout process from cart by performing cancel in second step', async ()=>{
+test('Verify checkout process from cart by performing cancel in second step@checkout', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
     await CP.navigateToCartPage();
@@ -76,7 +76,7 @@ test('Verify checkout process from cart by performing cancel in second step', as
     expect(await DP.productsText.isVisible()).toBeTruthy();
 });
 
-test('Verify finishing checkout process and order confirmation', async ()=>{
+test('Verify finishing checkout process and order confirmation@checkout', async ()=>{
     const products = await DP.getAllProductNames();
     await DP.addToCartProductByName(products[2]);
     await DP.addToCartProductByName(products[4]);
