@@ -32,5 +32,9 @@
   },
   "dependencies": {
     "dotenv": "^17.2.3"
+  },
+  "jscpd": {
+    "threshold": 0,
+    "reporters": ["html"]
   }
 }

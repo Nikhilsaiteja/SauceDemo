@@ -57,7 +57,9 @@ SauceDemo/
 ├── allure-results/               # Allure test results (JSON)
 ├── allure-report/                # Generated Allure HTML report
 ├── playwright-report/            # Playwright HTML report
+├── report/                       # Allure report screenshots
 ├── test-results/                 # Test artifacts and screenshots
+├── .env.example                  # Environment variables template
 ├── playwright.config.js          # Playwright configuration
 ├── package.json                  # Project dependencies and scripts
 └── README.md                     # Project documentation
@@ -95,7 +97,13 @@ npx playwright install
 
 4. **Set up environment variables**
 
-Create a `.env` file in the root directory with the following variables:
+Copy the `.env.example` file and create a `.env` file in the root directory:
+
+```bash
+cp .env.example .env
+```
+
+The `.env` file should contain the following variables:
 
 ```env
 APP_URL=https://www.saucedemo.com/
@@ -104,6 +112,8 @@ APP_PASSWORD=secret_sauce
 SHORT_TIMEOUT=5000
 LONG_TIMEOUT=10000
 ```
+
+> **Note**: `.env` is excluded from git tracking for security. Use `.env.example` as a template.
 
 ## 🔧 Configuration
 
@@ -143,10 +153,28 @@ npm run test:dashboard
 npm run test:cart
 ```
 
-### Run tests with specific tags
+### Run tests with grep patterns (tags)
+
+Run tests that match specific grep patterns:
 
 ```bash
+# Run login tests
 npx playwright test --grep @login
+
+# Run filter tests (product sorting and filtering)
+npx playwright test --grep @filter
+
+# Run menu functionality tests
+npx playwright test --grep @menu
+
+# Run cart tests
+npx playwright test --grep @cart
+
+# Run checkout tests
+npx playwright test --grep @checkout
+
+# Combine multiple patterns (login OR cart tests)
+npx playwright test --grep "@login|@cart"
 ```
 
 ## 📊 Test Coverage
@@ -198,6 +226,8 @@ npm run allure:generate
 npm run allure:open
 ```
 
+Allure report screenshots are saved in the `report/` folder for documentation and sharing purposes.
+
 ### Clear Allure Results
 
 To clear previous test results before a fresh run:
@@ -211,11 +241,12 @@ npm run allure:clear
 This framework follows several best practices:
 
 1. **Page Object Model**: Separates test logic from page implementation
-2. **Environment Variables**: Sensitive data stored securely in `.env`
-3. **Waits and Synchronization**: Proper wait strategies for stable tests
-4. **Descriptive Test Names**: Clear test descriptions for better reporting
-5. **Modular Structure**: Easy to extend and maintain
-6. **Reusable Functions**: Common actions abstracted into page objects
+2. **Environment Variables**: Sensitive data stored securely in `.env` (excluded from git)
+3. **Grep Tags**: Tests organized with grep patterns for flexible test execution
+4. **Waits and Synchronization**: Proper wait strategies for stable tests
+5. **Descriptive Test Names**: Clear test descriptions for better reporting
+6. **Modular Structure**: Easy to extend and maintain
+7. **Reusable Functions**: Common actions abstracted into page objects
 
 ## 🤝 Contributing
 
