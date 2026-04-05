@@ -17,16 +17,15 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Create .env file from secrets
-      run: |
-        echo "APP_URL=${{ secrets.APP_URL }}" >> .env
-        echo "APP_USERNAME=${{ secrets.APP_USERNAME}}" >> .env
-        echo "APP_PASSWORD=${{ secrets.APP_PASSWORD }}" >> .env
-        echo "TIMEOUT=${{ secrets.TIMEOUT }}" >> .env
-        echo "SHORT_TIMEOUT=${{ secrets.SHORT_TIMEOUT }}" >> .env
-        echo "LONG_TIMEOUT=${{ secrets.LONG_TIMEOUT }}" >> .env
-        echo "VERY_SHORT_TIMEOUT=${{ secrets.VERY_SHORT_TIMEOUT }}" >> .env
     - name: Run Playwright tests
+      env:
+        APP_URL: ${{ secrets.APP_URL }}
+        APP_USERNAME: ${{ secrets.APP_USERNAME }}
+        APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+        TIMEOUT: ${{ secrets.TIMEOUT }}
+        SHORT_TIMEOUT: ${{ secrets.SHORT_TIMEOUT }}
+        LONG_TIMEOUT: ${{ secrets.LONG_TIMEOUT }}
+        VERY_SHORT_TIMEOUT: ${{ secrets.VERY_SHORT_TIMEOUT }}
       run: npx playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
