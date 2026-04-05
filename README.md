@@ -110,8 +110,8 @@ The `.env` file should contain the following variables:
 
 ```env
 APP_URL=https://www.saucedemo.com/
-APP_USERNAME=standard_user
-APP_PASSWORD=secret_sauce
+APP_USERNAME=your_username
+APP_PASSWORD=your_password
 TIMEOUT=10000
 SHORT_TIMEOUT=5000
 LONG_TIMEOUT=20000
