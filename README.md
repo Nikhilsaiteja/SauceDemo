@@ -60,7 +60,7 @@ SauceDemo/
 ├── allure-results/               # Allure test results (JSON)
 ├── allure-report/                # Generated Allure HTML report
 ├── playwright-report/            # Playwright HTML report
-├── report/                       # Allure report screenshots
+├── report/                       # Allure report screenshot
 ├── test-results/                 # Test artifacts and screenshots
 ├── .env.example                  # Environment variables template
 ├── playwright.config.js          # Playwright configuration

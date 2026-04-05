@@ -11,15 +11,15 @@ module.exports = class LoginPage{
     initilizeLocators(){
 
         //title locator
-        this.titleText = this.page.locator("//div[@class='login_logo']").first();
+        this.titleText = this.page.locator(".login_logo").first();
 
         //login locators
-        this.usernameInput = this.page.locator("//input[@id='user-name']").first();
-        this.passwordInput = this.page.locator("//input[@id='password']").first();
-        this.loginBtn = this.page.locator("//input[@id='login-button']").first();
+        this.usernameInput = this.page.locator("#user-name").first();
+        this.passwordInput = this.page.locator("#password").first();
+        this.loginBtn = this.page.locator("#login-button").first();
 
         //login error
-        this.loginError = this.page.locator("//h3[@data-test='error']").first();
+        this.loginError = this.page.locator("[data-test='error']").first();
 
     }
 

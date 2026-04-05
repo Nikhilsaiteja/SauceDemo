@@ -11,33 +11,33 @@ module.exports = class DashboardPage{
     initilizeLocators(){
 
         //Title locator
-        this.dashboardTitle = this.page.locator("//div[@class='app_logo']").first();
-        this.productsText = this.page.locator("//span[@class='title']").first();
+        this.dashboardTitle = this.page.locator('.app_logo').first();
+        this.productsText = this.page.locator('.title').first();
 
         //All products
-        this.allProducts = this.page.locator("//div[@class='inventory_item']");
-        this.allProductsNames = this.page.locator("//div[@class='inventory_item']/div[2]/div[1]/a/div");
-        this.allProductsPrices = this.page.locator("//div[@class='inventory_item']/div[2]/div[2]/div");
+        this.allProducts = this.page.locator('.inventory_item');
+        this.allProductsNames = this.page.locator('div.inventory_item_name[data-test="inventory-item-name"]');
+        this.allProductsPrices = this.page.locator('.inventory_item_price');
 
         //Product filter button
-        this.productFilterBtn = this.page.locator("//select[@class='product_sort_container']").first();
+        this.productFilterBtn = this.page.locator('.product_sort_container').first();
 
         //Cart locator
-        this.cartIcon = this.page.locator("//a[@class='shopping_cart_link']").first();
+        this.cartIcon = this.page.locator('.shopping_cart_link').first();
 
         //Menu locators
-        this.menuBtn = this.page.locator("//button[@id='react-burger-menu-btn']").first();
-        this.allItemsBtn = this.page.locator("//a[@id='inventory_sidebar_link']").first();
-        this.aboutBtn = this.page.locator("//a[@id='about_sidebar_link']").first();
-        this.logoutBtn = this.page.locator("//a[@id='logout_sidebar_link']").first();
-        this.resetAppStateBtn = this.page.locator("//a[@id='reset_sidebar_link']").first();
-        this.menuCloseBtn = this.page.locator("//button[@id='react-burger-cross-btn']").first();
+        this.menuBtn = this.page.locator('#react-burger-menu-btn').first();
+        this.allItemsBtn = this.page.locator('#inventory_sidebar_link').first();
+        this.aboutBtn = this.page.locator('#about_sidebar_link').first();
+        this.logoutBtn = this.page.locator('#logout_sidebar_link').first();
+        this.resetAppStateBtn = this.page.locator('#reset_sidebar_link').first();
+        this.menuCloseBtn = this.page.locator('#react-burger-cross-btn').first();
 
         //sauce labs title
-        this.sauceLabsTitle = this.page.locator("//div[@class='MuiBox-root css-lwb5go']//img[@alt='Saucelabs']").first();
+        this.sauceLabsTitle = this.page.locator('(//img[@alt="Saucelabs"])[4]').first();
 
         //login button
-        this.loginBtn = this.page.locator("//input[@id='login-button']").first();
+        this.loginBtn = this.page.locator('#login-button').first();
 
     }
 

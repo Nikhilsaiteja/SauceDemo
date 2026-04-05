@@ -11,28 +11,28 @@ module.exports = class CartPage{
     initilizeLocators(){
 
         //Cart locator
-        this.cartIcon = this.page.locator("//a[@class='shopping_cart_link']").first();
-        this.cartPageTitle = this.page.locator("//span[@class='title']").first();
-        this.cartItems = this.page.locator("//div[@class='cart_item']");
-        this.cartItemsNames = this.page.locator("//div[@class='inventory_item_name']");
-        this.cartItemsPrices = this.page.locator("//div[@class='inventory_item_price']");
-        this.continueShoppingBtn = this.page.locator("//button[@id='continue-shopping']").first();
+        this.cartIcon = this.page.locator('a.shopping_cart_link').first();
+        this.cartPageTitle = this.page.locator('span.title').first();
+        this.cartItems = this.page.locator('div.cart_item');
+        this.cartItemsNames = this.page.locator('div.inventory_item_name');
+        this.cartItemsPrices = this.page.locator('div.inventory_item_price');
+        this.continueShoppingBtn = this.page.locator('button#continue-shopping').first();
 
         //Checkout locators
-        this.checkoutBtn = this.page.locator("//button[@id='checkout']").first();
-        this.checkoutPageTitle = this.page.locator("//span[@class='title']").first();
-        this.firstNameInput = this.page.locator("//input[@id='first-name']").first();
-        this.lastNameInput = this.page.locator("//input[@id='last-name']").first();
-        this.postalCodeInput = this.page.locator("//input[@id='postal-code']").first();
-        this.continueBtn = this.page.locator("//input[@id='continue']").first();
-        this.cancelBtn = this.page.locator("//button[@id='cancel']").first();
-        this.subTotal = this.page.locator("//div[@class='summary_subtotal_label']").first();
-        this.tax = this.page.locator("//div[@class='summary_tax_label']").first();
+        this.checkoutBtn = this.page.locator('button#checkout').first();
+        this.checkoutPageTitle = this.page.locator('span.title').first();
+        this.firstNameInput = this.page.locator('input#first-name').first();
+        this.lastNameInput = this.page.locator('input#last-name').first();
+        this.postalCodeInput = this.page.locator('input#postal-code').first();
+        this.continueBtn = this.page.locator('input#continue').first();
+        this.cancelBtn = this.page.locator('button#cancel').first();
+        this.subTotal = this.page.locator('div.summary_subtotal_label').first();
+        this.tax = this.page.locator('div.summary_tax_label').first();
 
         //Finish locators
-        this.finishBtn = this.page.locator("//button[@id='finish']").first();
-        this.total = this.page.locator("//div[@class='summary_total_label']").first();
-        this.orderConfirmationMessage = this.page.locator("//h2[normalize-space()='Thank you for your order!']").first();
+        this.finishBtn = this.page.locator('button#finish').first();
+        this.total = this.page.locator('div.summary_total_label').first();
+        this.orderConfirmationMessage = this.page.locator('h2:has-text("Thank you for your order!")').first();
 
     }
 
